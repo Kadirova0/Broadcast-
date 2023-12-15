@@ -6,6 +6,7 @@ using Pustok.Services.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static Pustok.Contracts.BroadcastTemplate.Order;
 
 namespace Pustok.Services.Concretes;
 
@@ -67,5 +68,29 @@ public class OrderService : IOrderService
 
 
         return notifications;
+    }
+
+
+    public Broadcast CreateOrderBroadcast(Order order)
+    {
+        var client = _userService.GetWholeStaff();
+        Broadcast broadcasts = new Broadcast();
+
+        foreach (var user in client)
+        {
+            var broadcast = new Broadcast
+            {
+                Title = BroadcastTemplate.Order.Created.TITLE,
+                Content = BroadcastTemplate.Order.Created.CONTENT
+                    .Replace(BroadcastTemplateKeyword.TRACKING_CODE, order.TrackingCode)
+                    .Replace(BroadcastTemplateKeyword.USER_FULL_NAME, _userService.GetFullName(order.User)),
+
+                User = user,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _pustokDbContext.Broadcast.Add(broadcasts);
+        }
+        return broadcasts;
     }
 }

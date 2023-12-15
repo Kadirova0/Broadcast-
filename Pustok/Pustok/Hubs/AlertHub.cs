@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Pustok.Services.Abstract;
+using Pustok.Services.Concretes;
 using System;
 using System.Threading.Tasks;
 
@@ -43,4 +44,4 @@ public class AlertHub : Hub
 
         return base.OnDisconnectedAsync(exception);
     }
-}
+} 

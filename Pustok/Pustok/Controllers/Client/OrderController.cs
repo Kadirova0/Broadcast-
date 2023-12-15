@@ -87,6 +87,31 @@ public class OrderController : Controller
 
         _pustokDbContext.SaveChanges();
 
+
+
+        var broadcast = _orderService.CreateOrderBroadcast(order);
+
+        var bConnectionId = _userService
+                    .GetUserConnections(order.UserId);
+
+        foreach (var connectionId in bConnectionId)
+        {
+            var model = new BroadcastViewModel
+            {
+                Title = broadcast.Title,
+                Content = broadcast.Content,
+                CreatedAt = broadcast.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+            };
+
+            await _alertHubContext.Clients
+                .Client(connectionId)
+                .SendAsync("ReceiveAlertMessage", model);
+        }
+
+        _pustokDbContext.SaveChanges();
+
+
         return RedirectToAction("Orders", "Dashboard");
+
     }
 }

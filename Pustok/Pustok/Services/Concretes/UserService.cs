@@ -38,6 +38,7 @@ public class UserService : IUserService
         return _userConnection.SingleOrDefault(uc => uc.UserId == userId)?.ConnectionIds ?? new List<string>();
     }
 
+
     public void AddCurrentUserConnection(string userConnection)
     {
         var connectionIds = _userConnection
