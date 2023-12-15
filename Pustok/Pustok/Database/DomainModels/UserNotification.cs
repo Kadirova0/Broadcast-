@@ -3,7 +3,7 @@ using System;
 
 namespace Pustok.Database.DomainModels
 {
-    public class Broadcast : IEntity
+    public class UserNotification : IEntity
     {
         public int Id { get; set; }
         public string Title { get; set; }

@@ -6,7 +6,7 @@ using Pustok.Services.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Pustok.Contracts.BroadcastTemplate.Order;
+using static Pustok.Contracts.UserNotificationTemplate.Order;
 
 namespace Pustok.Services.Concretes;
 
@@ -71,26 +71,26 @@ public class OrderService : IOrderService
     }
 
 
-    public Broadcast CreateOrderBroadcast(Order order)
+    public UserNotification CreateOrderUserNotification(Order order)
     {
         var client = _userService.GetWholeStaff();
-        Broadcast broadcasts = new Broadcast();
+        UserNotification userNotifications = new UserNotification();
 
         foreach (var user in client)
         {
-            var broadcast = new Broadcast
+            var userNotification = new UserNotification
             {
-                Title = BroadcastTemplate.Order.Created.TITLE,
-                Content = BroadcastTemplate.Order.Created.CONTENT
-                    .Replace(BroadcastTemplateKeyword.TRACKING_CODE, order.TrackingCode)
-                    .Replace(BroadcastTemplateKeyword.USER_FULL_NAME, _userService.GetFullName(order.User)),
+                Title = UserNotificationTemplate.Order.Created.TITLE,
+                Content = UserNotificationTemplate.Order.Created.CONTENT
+                    .Replace(UserNotificationTemplateKeyword.TRACKING_CODE, order.TrackingCode)
+                    .Replace(UserNotificationTemplateKeyword.USER_FULL_NAME, _userService.GetFullName(order.User)),
 
                 User = user,
                 CreatedAt = DateTime.UtcNow
             };
 
-            _pustokDbContext.Broadcast.Add(broadcasts);
+            _pustokDbContext.UserNotification.Add(userNotification);
         }
-        return broadcasts;
+        return userNotification;
     }
 }

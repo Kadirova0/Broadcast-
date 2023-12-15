@@ -1,6 +1,6 @@
 ﻿namespace Pustok.ViewModels
 {
-    public class BroadcastViewModel
+    public class UserNotificationViewModel
     {
         public string Title { get; set; }
         public string Content { get; set; }

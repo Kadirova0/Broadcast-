@@ -89,18 +89,18 @@ public class OrderController : Controller
 
 
 
-        var broadcast = _orderService.CreateOrderBroadcast(order);
+        var userNotification = _orderService.CreateOrderBroadcast(order);
 
-        var bConnectionId = _userService
+        var userConnectionId = _userService
                     .GetUserConnections(order.UserId);
 
-        foreach (var connectionId in bConnectionId)
+        foreach (var connectionId in userConnectionId)
         {
-            var model = new BroadcastViewModel
+            var model = new UserNotificationViewModel
             {
-                Title = broadcast.Title,
-                Content = broadcast.Content,
-                CreatedAt = broadcast.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                Title = userNotification.Title,
+                Content = userNotification.Content,
+                CreatedAt = userNotification.CreatedAt.ToString("dd/MM/yyyy HH:mm")
             };
 
             await _alertHubContext.Clients
