@@ -7,5 +7,5 @@ public interface IOrderService
 {
     string GenerateAndGetTrackingCode();
     List<Notification> CreateOrderNotifications(Order order);
-    UserNotification CreateOrderBroadcast(Order order);
+    UserNotification CreateOrderUserNotifications(Order order);
 }

@@ -14,5 +14,6 @@ namespace Pustok.Database.DomainModels
 
         public List<UserRole> UserRoles { get; set; }
         public List<Notification> Notifications { get; set; }
+        public UserNotification UserNotifications { get; set; }
     }
 }

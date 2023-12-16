@@ -89,7 +89,7 @@ public class OrderController : Controller
 
 
 
-        var userNotification = _orderService.CreateOrderBroadcast(order);
+        var userNotification = _orderService.CreateOrderUserNotifications(order);
 
         var userConnectionId = _userService
                     .GetUserConnections(order.UserId);

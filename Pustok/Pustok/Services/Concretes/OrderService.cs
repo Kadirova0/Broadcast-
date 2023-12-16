@@ -71,7 +71,7 @@ public class OrderService : IOrderService
     }
 
 
-    public UserNotification CreateOrderUserNotification(Order order)
+    public UserNotification CreateOrderUserNotifications(Order order)
     {
         var client = _userService.GetWholeStaff();
         UserNotification userNotifications = new UserNotification();
@@ -89,8 +89,8 @@ public class OrderService : IOrderService
                 CreatedAt = DateTime.UtcNow
             };
 
-            _pustokDbContext.UserNotification.Add(userNotification);
+            _pustokDbContext.UserNotifications.Add(userNotification);
         }
-        return userNotification;
+        return userNotifications;
     }
 }

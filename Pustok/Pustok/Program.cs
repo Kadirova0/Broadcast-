@@ -28,6 +28,7 @@ public class Program
         builder.Services.AddAuth();
         builder.Services.AddCustomServices(builder.Configuration);
         builder.Services.AddSignalR();
+        builder.Services.AddControllers();
     }
 
     private static void ConfigureMiddlewarePipeline(WebApplication app)
@@ -41,5 +42,14 @@ public class Program
 
         app.MapHub<AlertHub>("alerthub");
         app.MapHub<UsersPageHub>("userspagehub");
+       
+
+        
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapRazorPages();
+            endpoints.MapControllers();
+            endpoints.MapHub<AlertHub>("/alerthub");
+        });
     }
 }
